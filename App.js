@@ -6,7 +6,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Stack = createStackNavigator();
-const SettingsStack = createStackNavigator();
 
 class Home extends React.Component {
   constructor(props){
@@ -24,7 +23,7 @@ componentDidMount(){
 }
 
 _goDetails=()=>{
-  this.props.navigation.navigate("Details")
+  this.props.navigation.navigate("专辑详情")
 }
 
 _del=id=>{
@@ -58,17 +57,6 @@ _renderItem=({item})=>{
 _ItemSeparatorComponent=()=>{
   return <View style={{height:1,backgroundColor:"gray"}}></View>
 }
-_refresh=()=>{
-    let d=Math.floor(Math.random()*100+100)
-    let data=this.state.data.splice(0)
-    data.unshift(d)
-    this.setState({data:data})
-}
-_reachEnd=()=>{
-    let data=this.state.data.splice(0)
-    data.push(++this.max)
-    this.setState({data:data})
-}
   render() {
     return (
       <View>
@@ -78,8 +66,6 @@ _reachEnd=()=>{
           data={this.state.albums} 
           renderItem={this._renderItem}
           refreshing={false}
-          onRefresh={this._refresh}
-          onEndReached={this._reachEnd}
           onEndReachedThreshold={0.2}
       />
       </View>
@@ -87,13 +73,14 @@ _reachEnd=()=>{
 
   }
 }
+
 class Details extends React.Component{
   render(){
     return (
-      <SettingsStack.Navigator initialRouteName="详情">
-        <SettingsStack.Screen name="BlueTooth" component={BlueTooth}/>
-        <Stack.Screen name="流行音乐排行榜" component={Home}/>
-      </SettingsStack.Navigator>
+      <View>
+        <Text></Text>
+      </View>
+     
     )
   }
 }
@@ -108,15 +95,14 @@ export default class App extends Component {
     render() {
         return (
             <NavigationContainer>
-              <Stack.Navigator>
+              <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="流行音乐排行榜" component={Home}/>
-                <Stack.Screen name="详情" component={Details}/>
+                <Stack.Screen name="专辑详情" component={Details}/>
               </Stack.Navigator>
             </NavigationContainer>
 
         )
     }
-    
 }
 
 const style = StyleSheet.create({
